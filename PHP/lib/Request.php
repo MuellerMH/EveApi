@@ -2,9 +2,12 @@
 
 class Request {
 
-	private $sUrl = "";
+	private $sUrl = "https://api.eveonline.com";
+	private $keyID = "";
+	private $vCode = "";
 	private $aHeaderLog = array();
 	private $aOptions = array();
+
 
 	private function setOptions()
 	{
@@ -15,7 +18,7 @@ class Request {
 	{
 		$this->setOptions();
 		$response = http_get ($this->sUrl,$this->aArray,$this->aHeaderLog);
-		return $response;
+		return xml_parse_into_struct ($response);
 	}
 
 }
