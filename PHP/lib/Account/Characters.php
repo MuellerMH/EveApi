@@ -5,24 +5,27 @@ class Characters
 	private $characterName;
 	private $corporationID;
 	private $corportationName;
-
-	public $aChar;
+	public $charCount=0;
 
 	public function __construct( $data )
 	{
-		foreach($data->result->rowset as $key=>$Char)
-		{			
-			$this->aChar[$key] = $this;
-			$this->aChar[$key]->characterID = $Char->characterID;
-			$this->aChar[$key]->characterName = $Char->name;
-			$this->aChar[$key]->corporationID = $Char->corporationID;
-			$this->aChar[$key]->corportationName = $Char->corporationName;
+		foreach($data->result->rowset as $Char)
+		{		
+			++$this->charCount;
+			$this->characterID = $Char->row["characterID"];
+			$this->characterName = $Char->row["name"];
+			$this->corporationID = $Char->row["corporationID"];
+			$this->corportationName = $Char->row["corporationName"];
 		}		
 	}
 
 	public function getCharacter($key)
 	{
-		return $this->aChar[$key];
+		$Char["characterID"] = $this->characterID[$key];
+		$Char["characterName"] = $this->characterName[$key];
+		$Char["corporationID"] = $this->corporationID[$key];
+		$Char["corportationName"] = $this->corportationName[$key];
+		return $Char;
 	}
 }
  ?>
